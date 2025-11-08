@@ -18,6 +18,12 @@ app.get('/',(req,res)=>{
     res.send("Hello from Server");
 })
 
+// lightweight unauthenticated health endpoint for quick smoke tests
+// placed before `requireAuth()` so it can be used to verify the server is up
+app.get('/api/health', (req, res) => {
+    return res.json({ success: true, message: 'server healthy' });
+});
+
 app.use(requireAuth())
 app.use('/api/ai',aiRouter)
 app.use('/api/user',userRouter)
